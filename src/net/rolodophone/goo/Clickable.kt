@@ -1,28 +1,24 @@
 package net.rolodophone.goo
 
 import org.openrndr.MouseButton
-import org.openrndr.Program
-import org.openrndr.draw.Drawer
 
 abstract class Clickable: UIElement() {
 	var hovered = false
 	var pressed = false
+	var enabled = true
 
 	open fun onClick() {}
 
-
-	override fun update(drawer: Drawer, program: Program) {
-		abstractUpdate(drawer, program)
-
+	override fun update() {
 		val prevPressed = pressed
 
-		hovered = program.mouse.position in bounds
-		pressed = hovered && MouseButton.LEFT in program.mouse.pressedButtons
+		hovered = pg.mouse.position in bounds
+		pressed = hovered && MouseButton.LEFT in pg.mouse.pressedButtons
 
-		if (hovered && prevPressed && !pressed) {
+		if (hovered && prevPressed && !pressed && enabled) {
 			onClick()
 		}
 
-		abstractDraw(drawer, program)
+		abstractUpdate()
 	}
 }

@@ -1,20 +1,21 @@
 package net.rolodophone.goo
 
-import org.openrndr.Program
-import org.openrndr.draw.Drawer
 import org.openrndr.shape.Rectangle
 
 abstract class UIElement {
-	abstract var bounds: Rectangle
+	abstract val bounds: Rectangle
 
 	var visible = true
 
 
-	open fun abstractUpdate(drawer: Drawer, program: Program) {}
-	abstract fun abstractDraw(drawer: Drawer, program: Program)
+	open fun abstractUpdate() {}
+	abstract fun abstractDraw()
 
-	open fun update(drawer: Drawer, program: Program) {
-		abstractUpdate(drawer, program)
-		if (visible) abstractDraw(drawer, program)
+	open fun update() {
+		abstractUpdate()
+	}
+
+	open fun draw() {
+		if (visible) abstractDraw()
 	}
 }
